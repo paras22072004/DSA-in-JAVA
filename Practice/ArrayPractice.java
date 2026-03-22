@@ -1,3 +1,5 @@
+import java.util.*;
+import javax.swing.plaf.InputMapUIResource;
 // // public class Main{
 // //     // longest common prefix
 // //     public static void longest(String[] ch) {
@@ -184,7 +186,7 @@
 //     System.out.println(kmaxSubArray(arr));  
 //   }
 // }
-public class Main {
+public class ArrayPractice {
 
     // binary 
     public static void binary(int arr[], int key) {
@@ -269,7 +271,7 @@ public class Main {
         }
 
         for (int i = 0; i < pre.length; i++) {
-            int sum = 0;
+            int sum ;
             for (int j = i; j < pre.length; j++) {
                 sum = i == 0 ? pre[j] : pre[j] - pre[i - 1];
                 lar = Math.max(lar, sum);
@@ -311,7 +313,7 @@ public class Main {
             right[i] = Math.max(right[i + 1], num[i]);
             //System.out.println(right[i]);
         }
-        int waterlevel = 0;
+        int waterlevel ;
         for (int i = 0; i < num.length; i++) {
             waterlevel = Math.min(left[i], right[i]);
 
@@ -337,34 +339,225 @@ public class Main {
         }
         return -1;
     }
-    //buy stock and sell
 
-    public static void buystock(int nums[]) {
-        
+
+    //buy stock and sell
+    public static int buystock(int prices[]) {
+        int maxProfit = 0;
+        int minValue = prices[0];
+        for(int i=1;i<prices.length;i++){
+            if(minValue > prices[i]){
+                minValue = prices[i];
+            }
+            else{
+                maxProfit = prices[i] - minValue;
+                maxProfit = Math.max(maxProfit,minValue);
+            }
+        }
+        return maxProfit;
+    }
+
+
+    //palidrome
+     public static  boolean isPal(int x) {
+       int rev = 0;
+       int org = x;
+        while(x>0){
+            int digit = x % 10;
+            rev = rev * 10 + digit;
+            x = x/10;
+        } 
+        if(org==rev){
+            return true;
+        }
+        return false;
     }
 
 
     //SORTING
 
     // bubble sort
-    public static void bubblesort(String[] args) {
+    public static void bubblesort(int nums[]) {
+        int n = nums.length;
+        for (int i = 0; i < n-1; i++) {
+            for (int j = 0; j < n-1-i; j++) {
+                if(nums[j]>nums[j+1]){
+                    int temp = nums[j];
+                    nums[j] = nums[j+1];
+                    nums[j+1]=temp;
+                }
+            }
+        }
+    }
+
+
+    // optimize bubble sort
+     public static void opbubblesort(int nums[]) {
+        int n = nums.length;
+        int swap = 0;
+        for (int i = 0; i < n-1; i++) {
+            for (int j = 0; j < n-1-i; j++) {
+                if(nums[j]>nums[j+1]){
+                    int temp = nums[j];
+                    nums[j] = nums[j+1];
+                    nums[j+1]=temp;
+                    swap++;
+                }
+               System.out.print(swap+" ");
+               
+            }
+            System.out.println("");
+            if(swap == 0){
+                return;
+            }
+        }
+    }
+
+
+    //selection sort
+    public static void selsort(int num[]) {
+        for (int i = 0; i < num.length-1; i++) {
+            int minpos = i;
+            for (int j = i+1; j < num.length; j++) {
+                if(num[j] < num[minpos]){
+                 minpos = j;
+                }
+                int temp = num[minpos];
+                num[minpos] = num[i];
+                num[i]=temp;  
+            }
+            
+        }
+    }
+    
+    //rotated array
+     public static void rotate(int[] nums, int k) {
+       int n = nums.length;
+       k = k%n;
+       if(k<0){
+        k += n;
+       } 
+
+       reverse(nums,0,n-k-1);
+       reverse(nums,n-k,n-1);
+       reverse(nums,0,n-1);
+    }
+    public static void reverse(int num[],int left, int right){
+        while(left<right){
+            int temp = num[left];
+            num[left] = num[right];
+            num[right] = temp;
+            left++;
+            right--;
+        }
+    }
+
+   
+    public static void rotateArr(int arr[], int d) {
+        int n = arr.length;
+        reverse(arr,0,n-d-2);
+        reverse(arr,n-d-1,n-1);
+        reverse(arr,0,n-1);
+    }
+
+
+
+     //2D array
+    public static void doublearray() {
+        int a[][] = new int[2][2];
+        a[0][0]= 5;
+        a[1][1]= 15;
+        a[0][1]= 25;
+        a[1][0]= 35;
+        for(int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a[0].length; j++) {
+                System.out.println(a[i][j]); 
+                
+            }
+            
+        }
+
+    }
+
+    //spiral 
+    public static void spiral(int arr[][]) {
+        int n = arr.length;
+        int strow = 0;
+        int enrow = n-1;
+        int stcol = 0;
+        int encol = n-1;
+        while(strow<= enrow && stcol <= encol){
+            //top
+            for (int i = stcol; i <= encol; i++) {
+                System.out.print(arr[strow][i]+" ");
+            }
+
+            //right
+            for (int i = strow +1; i <= enrow; i++) {
+                System.out.print(arr[i][encol]+" ");
+            }
+            
+            //bottom
+            for (int i = encol - 1; i >= stcol; i--) {
+                if(strow == enrow){
+                    break;
+                }
+                System.out.print(arr[enrow][i]+" ");
+            }
+
+            //left
+            for (int i = enrow-1; i > strow; i--) {
+                if(stcol==encol){
+                    break;
+                }
+                System.out.print(arr[i][stcol]+" ");
+            }
+
+            stcol++;
+            strow++;
+            enrow--;
+            encol--;
+        }
+    }
+
+
+
+    //missing in 2d array
+    public static int[] missing(int grid[][]) {
+        int n = grid.length;
+        int total = n * n;
+
+        HashSet<Integer> set = new HashSet<>();
+        int ans[] = new int[2];
+
+        // Find repeated
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < n; j++){
+                if(set.contains(grid[i][j])){
+                    ans[0] = grid[i][j]; // repeated
+                } else {
+                    set.add(grid[i][j]);
+                }
+            }
+        }
+
+        // Find missing
+        for(int i = 1; i <= total; i++){
+            if(!set.contains(i)){
+                ans[1] = i;
+            }
+        }
+
+        return ans;
         
     }
 
+
+    
     public static void main(String[] args) {
-        int arr[] = {2, 2, 1, 1, 1, 2, 2};
-        int lar = 3;
-        //  reverse(arr);
-        //  for (int i = 0; i < arr.length; i++) {
-        //      System.out.print(arr[i]+" ");
-        //  }   
-        //System.out.println(lar);
-        //binary(arr, lar);
-        //pairs(arr);
-        //subarray(arr);
-        //maxsubarray(arr);
-        //prefix(arr);
-        //trapWater(arr);
-        System.out.println(majority(arr));
+        int nums[][] ={{1,3},
+                       {2,2}};
+       //System.out.println(missing(nums));
+      
     }
 }
