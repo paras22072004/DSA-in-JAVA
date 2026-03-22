@@ -1,5 +1,4 @@
 import java.util.*;
-import javax.swing.plaf.InputMapUIResource;
 // // public class Main{
 // //     // longest common prefix
 // //     public static void longest(String[] ch) {
@@ -367,10 +366,7 @@ public class ArrayPractice {
             rev = rev * 10 + digit;
             x = x/10;
         } 
-        if(org==rev){
-            return true;
-        }
-        return false;
+        return org == rev;
     }
 
 
@@ -469,13 +465,13 @@ public class ArrayPractice {
         a[1][1]= 15;
         a[0][1]= 25;
         a[1][0]= 35;
-        for(int i = 0; i < a.length; i++) {
-            for (int j = 0; j < a[0].length; j++) {
-                System.out.println(a[i][j]); 
+        // for(int i = 0; i < a.length; i++) {
+        //     for (int j = 0; j < a[0].length; j++) {
+        //         System.out.println(a[i][j]); 
                 
-            }
+        //     }
             
-        }
+        // }
 
     }
 
@@ -555,8 +551,8 @@ public class ArrayPractice {
 
     
     public static void main(String[] args) {
-        int nums[][] ={{1,3},
-                       {2,2}};
+        //int nums[][] ={{1,3},
+                       //{2,2}};
        //System.out.println(missing(nums));
       
     }
