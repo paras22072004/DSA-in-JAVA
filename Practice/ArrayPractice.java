@@ -549,11 +549,62 @@ public class ArrayPractice {
     }
 
 
-    
+    //Set Matrix Zeroes
+    public static void setZero(int arr[][]){
+        boolean row[] = new boolean[arr.length];
+        boolean col[] = new boolean[arr[0].length];
+        for(int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                if(arr[i][j]==0){
+                   row[i] = true;
+                   col[j] = true;
+                }
+            }
+        }
+
+       for(int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+                if(row[i]|| col[j]){
+                    arr[i][j]=0;
+                }
+            }
+        }
+
+
+
+        for(int i = 0; i < arr.length; i++) {
+            for (int j = 0; j < arr[0].length; j++) {
+               System.out.print(arr[i][j]+"");
+            }
+            System.out.println("");
+        }
+
+        //  for (int j = 0; j < arr[0].length; j++) {
+        //         System.out.println(row[j]);
+        //     }
+
+    }
+
+    // 3 sum 
+    public static void threesum(String[] args) {
+        
+    }
     public static void main(String[] args) {
-        //int nums[][] ={{1,3},
-                       //{2,2}};
-       //System.out.println(missing(nums));
+       int nums[] = {0,2};
+       HashMap<Integer,Integer> hm = new HashMap<>();
+        int mul = 1;
       
+        for(int i=0;i<nums.length;i++){
+         mul *= nums[i];
+         System.out.println(mul);
+         hm.put(mul,1);
+        }
+        int larg = nums[0];
+         for(Integer key : hm.keySet()){
+           larg = Math.max(larg, key);
+         }
+
+         System.out.println(larg);
+   
     }
 }

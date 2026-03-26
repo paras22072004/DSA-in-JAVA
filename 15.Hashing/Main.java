@@ -108,6 +108,36 @@ public class Main {
     }
 
 
+    //longest sequence
+     public static int longestConsecutive(int[] nums) {
+        HashMap<Integer,Boolean> hm = new HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            hm.put(nums[i],true);
+        }
+
+        for(int i=0;i<nums.length;i++){
+            if(hm.containsKey(nums[i]-1)){
+                hm.put(nums[i],false);
+            }
+        }
+
+        int max = 0;
+        for(Integer key: hm.keySet()){
+            if(hm.get(key) == true){
+              int curr = key;
+              int ans = 0;
+               while(hm.containsKey(curr)){
+                ans++;
+                curr++;
+             }
+             max = Math.max(max,ans);
+            }
+        }
+        return max;
+
+    }
+
+
     public static void main(String[] args) {
         // int arr[] = {1, 2, 3, 2, 4,3,3,2,4,2,1,2,9,3,4,5,56,6,7,754,3,10,2,2, 1};
         // HashMap <Integer, Integer> hm = new HashMap<>();
@@ -121,7 +151,25 @@ public class Main {
         //  for(Integer keys : k){
         //    System.out.println(keys +" "+ hm.get(keys));
         //  }
-        
-        
+        int nums[] = {3,2,3};
+        ArrayList <Integer> ar = new ArrayList<>();
+        HashMap <Integer,Integer> hm = new HashMap<>();
+        int n = nums.length;
+
+        for(int i=0;i<n;i++){
+            if(hm.containsKey(nums[i])){
+                hm.put(nums[i],hm.get(nums[i])+1);
+            }else{
+                hm.put(nums[i],1);
+            }
+        }
+        System.out.println(hm);
+
+        for(Integer key: hm.keySet()){
+            if(hm.get(key)>n/3){
+                ar.add(key);
+            }
+        }
+       System.out.println(ar);
     }
 }
