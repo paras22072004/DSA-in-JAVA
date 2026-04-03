@@ -116,8 +116,55 @@
 // }
 
 
+
+
 //buy &sell stock
 public class Main{
+
+    public static void permutation(int arr[]) {
+        int stop = -1;
+        int big = -1;
+
+        for (int i = arr.length-2; i >= 0; i--) {
+            if(arr[i]<arr[i+1]){
+                stop = i;
+                break;
+            }
+        }
+
+
+        if(stop == -1){
+            reverse(arr,0);
+        }
+        else{
+            for (int i = arr.length-1; i >= 0; i--) {
+                if(arr[i]>arr[stop]){
+                   big = i;
+                   break;
+                }
+            }
+
+
+             int temp = arr[stop];
+             arr[stop] = arr[big];
+             arr[big] = temp;
+
+
+            reverse(arr,stop+1);
+        }
+    } 
+
+     public static void reverse( int arr[],int idx) {
+         int en = arr.length-1;
+         while(idx<en){
+            int temp = arr[idx];
+            arr[idx] = arr[en];
+            arr[en]= temp;
+
+            idx++;
+            en--;
+         }
+     }
     public static void profit(int num[]){
         int maxProfit = 0;
         int buyPrice = Integer.MAX_VALUE;
@@ -135,7 +182,10 @@ public class Main{
         System.out.println(maxProfit);
     }
     public static void main(String[] args) {
-        int price[]={7,1,5,3,6,4};
-        profit(price);
+        //int price[]={7,1,5,3,6,4};
+        //profit(price);
+        int arr[] = {1,2,3};
+        permutation(arr);
+       
     }
 }

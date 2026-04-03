@@ -1,19 +1,19 @@
 import java.util.*;
-import java.util.concurrent.LinkedBlockingDeque;
-import javax.swing.ViewportLayout;
 public class Main{
     
 
     // create graph by array of arraylist
-    static class Edges{
+    public static class Edges{
         int st;
         int en;
         int wt;
 
-        public Edges(int s,int e,int w){
+       
+
+        public Edges(int s,int e,int wt){
             this.st = s;
             this.en = e;
-            this.wt = w;
+            this.wt = wt;
         }
     }
 
@@ -22,39 +22,39 @@ public class Main{
             graph[i] = new ArrayList<>();
         }
         // 0
-        graph[0].add(new Edges(0, 1, 0));
-        graph[0].add(new Edges(0, 2, 0));
+        // graph[0].add(new Edges(0, 1, 0));
+        // graph[0].add(new Edges(0, 2, 0));
 
         //1
-        graph[1].add(new Edges(1, 0, 0));
-        graph[1].add(new Edges(1, 3, 0));
+        // graph[1].add(new Edges(1, 0, 0));
+        // graph[1].add(new Edges(1, 3, 0));
 
         //2
-        graph[2].add(new Edges(2, 0, 0));
-        graph[2].add(new Edges(2, 4, 0));
+        graph[2].add(new Edges(2, 3, 0));
+        //graph[2].add(new Edges(2, 4, 0));
 
         //3
         graph[3].add(new Edges(3, 1, 0));
-        graph[3].add(new Edges(3, 4, 0));
+        //graph[3].add(new Edges(3, 4, 0));
         // graph[3].add(new Edges(3, 5, 1));
 
         //4
-        graph[4].add(new Edges(4, 2, 0));
-        graph[4].add(new Edges(4, 3, 0));
+        graph[4].add(new Edges(4, 0, 0));
+        graph[4].add(new Edges(4, 1, 0));
 
         //5
-        // graph[5].add(new Edges(5, 3, 1));
-        // graph[5].add(new Edges(5, 4, 1));
+        graph[5].add(new Edges(5, 0, 1));
+        graph[5].add(new Edges(5, 2, 1));
         // graph[5].add(new Edges(5, 6, 1));
 
         //6
         //graph[6].add(new Edges(6, 5, 1));
 
 
-         for (int i = 0; i < graph[2].size(); i++) {
-             //Edges e = graph[2].get(i); 
-             //System.out.println(e.en);
-         }
+        //  for (int i = 0; i < graph[2].size(); i++) {
+        //      //Edges e = graph[2].get(i); 
+        //      //System.out.println(e.en);
+        //  }
     }
 
 
@@ -267,45 +267,63 @@ public class Main{
         stack[curr]= false;
         return false;
     }
+    
+
+    //topological sorting
+    public static void topoSort(ArrayList<Edges> [] graph) {
+        boolean vis[] = new boolean[graph.length];
+        Stack<Integer> s = new Stack<>();
+        for (int i = 0; i < graph.length; i++) {
+            if(!vis[i]){
+                topoSortutil(graph,i,vis,s);
+            }
+        }
+
+        while(!s.isEmpty()){
+            System.out.print(s.pop()+" ");
+        }
+        
+    }
+    
+    public static void topoSortutil(ArrayList<Edges> [] graph,int st,boolean vis[], Stack<Integer> s) {
+        vis[st]= true;
+        for (int i = 0; i < graph[st].size(); i++) {
+            Edges e = graph[st].get(i);
+            if(!vis[e.en]){
+                topoSortutil(graph,e.en,vis,s);
+            }
+        }
+        s.push(st);        
+    }
+
+
+    //printallPath
+    public static void printAllPath(ArrayList<Edges>[] graph,int src, int des,String path){
+      if(src==des){
+        System.out.println(path+des);
+        return;
+      }
+
+      for (int i = 0; i < graph[src].size(); i++) {
+          Edges e = graph[src].get(i);
+          printAllPath(graph, e.en, des, path+src);
+          
+      }
+    }
+
     public static void main(String[] args) {
-        // int vertex = 5;
-        //  @SuppressWarnings("unchecked")
-        // ArrayList<Edges>[] graph = new ArrayList[vertex];
-        // create(vertex, graph);
+        //int vertex = 5;
+        //@SuppressWarnings("unchecked")
+        //ArrayList<Edges>[] graph = new ArrayList[vertex];
+        //create(vertex, graph);
         // //bfs(graph);
         // // System.out.println("");
         // //dfs(graph);
         // // System.out.println(hasPath(graph, 0, 6, new boolean[vertex]));
         // System.out.println(isCycle(graph));
-
-        int arr[] = {4,2,1,3};
-        int min = 1;
-        List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> li = new ArrayList<>();
-        for(int i=0;i<arr.length;i++){
-            for(int j=0;j<arr.length;j++){
-                  int diff = arr[j]-arr[i];
-                if(diff>=1){
-                 min= Math.min(min,diff);
-                }
-                
-                
-            }
-        }
-
-        System.out.println(min);
-
-        for(int i=0;i<arr.length;i++){
-            for(int j=0;j<arr.length;j++){
-                if(arr[j]-arr[i]==min){
-                    li.add(arr[j]);
-                    li.add(arr[i]);
-                    ans.add(li);
-                }
-                
-            }
-        }
-
-        System.out.println(ans);        
+        //topoSort(graph);
+        //String path ="";
+        //printAllPath(graph, 2, 4, path);
+            
     }
 }
