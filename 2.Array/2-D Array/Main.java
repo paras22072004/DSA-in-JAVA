@@ -80,15 +80,36 @@ public class Main {
             }
       System.out.println(sum);
     }
+    
+
+    //staircase search
+    public static void stair(int arr[][],int key) {
+        int row = 0;
+        int col = arr[0].length-1;
+
+        while(row < arr.length && col>=0){
+            if(arr[row][col] == key){
+                System.out.println("i"+row+" "+"j"+col);
+                return;
+            }
+            else if(key < arr[row][col]){
+                col--;
+            }else{
+                row++;
+            }
+        }
+    } 
 
 
     public static void main(String[] args) {
-        int num[][] = {{1, 2, 3, 4},
-        {5, 6, 7, 8},
-        {9, 10, 11, 12},
-        {13, 14, 15, 16}};
+        int num[][] = {{10, 20, 30, 40},
+        {15, 25, 35, 45},
+        {27, 29, 37, 48},
+        {32, 33, 39, 50}};
+        
         //largest(num);
         //SpiralMatrix(num);
-        DiagonalSum(num);
+        //DiagonalSum(num);
+        stair(num, 10);
     }
 }

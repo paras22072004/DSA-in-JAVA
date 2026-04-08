@@ -112,7 +112,28 @@ public class Main{
         //builder();
         //String str = "hi i am paras";
         //UpperCase(str);
-        String str = "aaabbcccdd";
-        compression(str);
+        // String str = "aaabbcccdd";
+        // compression(str);
+
+      String moves = "UD";
+        int x = 0;
+        int y = 0;
+
+        for (int i = 0; i < moves.length(); i++) {
+            int dir = moves.charAt(i);
+            if(dir == 'L'){
+                x++;
+            }else if(dir == 'R'){
+                x--;
+            }else if(dir == 'U'){
+                y++;
+            }
+            else{
+                y--;
+            }
+        }
+        
+        
+    
        }
 }
