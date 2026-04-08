@@ -1,4 +1,4 @@
-import java.util.*;
+// import java.util.*;
 public class Main{
 
     //bitwise operators
@@ -19,48 +19,41 @@ public class Main{
             System.out.println("odd");
         }
     }
+
+    //XOR After Range Multiplication Queries I
+    public static void XORQuery(int arr[], int queries[][]) {
+     
+        for (int j = 0; j < queries.length; j++) {
+                int li = queries[j][0];
+                int ri = queries[j][1];
+                int ki = queries[j][2];
+                int vi = queries[j][3];
+
+                while(li<=ri){
+                 arr[li] = (int)(((long)arr[li] * vi) % 1000000007);
+                 li += ki;
+                 }
+            }
+            
+      
+         int ans = arr[0];
+
+          for (int i = 1; i < arr.length; i++) {
+            ans = ans ^ arr[i];
+        }
+
+        System.out.println(ans);
+      
+    }
     public static void main(String[] args) {
         //bit();
         // oddEven(5);
         // oddEven(2);
         // oddEven(10000);
-
-
-       String s = "the sky is blue";
-       int j =s.length()-1;
-       int i = s.length()-1;
-       String[] words = s.split("\\s+");
-       for (int k = 0; k < words.length; k++) {
-           System.out.println(words[k]);
-           
-       }
-
-       StringBuilder sb = new StringBuilder();
-       while (i >= 0) {
-
-            // jab space mile → word print karo
-            if (s.charAt(i) == ' ') {
-                int start = i + 1;
-                int end = j;
-
-                for (int k = start; k <= end; k++) {
-                    sb.append(s.charAt(k));
-                }
-                sb.append(" ");
-
-                j = i - 1; // next word ka end
-            }
-
-            i--;
-        }
-      
-         for (int k = 0; k <= j; k++) {
-            sb.append(s.charAt(k));
-        }
-        
-      sb.toString();
-        
-
+     
+        int arr[]= {1,1,1};
+        int nums[][]={{0,2,1,4}};
+        XORQuery(arr, nums);
 
     }
 }
