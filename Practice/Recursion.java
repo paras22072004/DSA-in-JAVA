@@ -1,3 +1,6 @@
+
+import java.util.*;
+
 public class Recursion{
 
     //print dec num
@@ -124,8 +127,35 @@ public class Recursion{
     
       return hals;       
     }
+
+    //tilling problem
+    public static int tiling(int n) {
+        if(n==0 || n==1){
+            return 1;
+        }
+        return tiling(n-1) + tiling(n-2);
+    }
+
+    //duplicate string
+    public static void dupString(String str,StringBuilder newStr, boolean map[],int idx ) {
+      if(idx==str.length()){
+        System.out.println(newStr);
+        return;
+      }
+
+      char cur = str.charAt(idx);
+
+      if(map[cur - 'a']== true){
+        dupString(str, newStr, map, idx+1);
+      }else{
+        map[cur-'a'] = true;
+        dupString(str, newStr.append(cur), map, idx+1);
+      } 
+    }
     public static void main(String[] args) {
-       
-       System.out.println(powOp(2, 10));
+       StringBuilder s = new StringBuilder();
+       //System.out.println(tiling(4));
+       boolean map[] = new boolean[26];
+       dupString("appnnacollege", s ,map, 0);
     }
 }
